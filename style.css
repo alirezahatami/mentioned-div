@@ -1,0 +1,47 @@
+* {
+	font-family: 'Tahoma';
+	font-size: 14px;
+}
+body {
+	margin: 10%;
+}
+#container {
+	margin-top: 7px;
+	width: 286px;
+}
+#container > #input {
+	padding: 7px;
+	font-size: 12px;
+	border: 1px solid #999;
+}
+#msg {
+	border:solid 1px #dedede;
+	padding:5px;
+	background-color:#f2f2f2
+}
+#display {
+	border-left:solid 1px #dedede;
+	border-right:solid 1px #dedede;
+	border-bottom:solid 1px #dedede;
+	background-color:#fff;
+	overflow:hidden;
+}
+.mentioned {}
+.add_mention {
+	display: inline-block;
+	cursor: pointer;
+	width: 100%;
+	padding: 5px;
+	padding-left: 10px;
+	border-bottom: 1px solid #666;
+	text-decoration: none;
+}
+.add_mention > a {
+	text-decoration: none;
+}
+.add_mention > img {
+	width: 32px;
+	height: auto;
+	float:left;
+	margin-right:6px
+}
