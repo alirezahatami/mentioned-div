@@ -43,7 +43,7 @@
 		    });
 		}
 
-		//Main Function
+		//Main Functions
 		var start = /@/ig; // @ Match
 		var word = /@(\w.+)/ig; //@abc Match
 		var display_id = 'display';
@@ -78,7 +78,7 @@
 				else is_like = false;
 			})
 
-			if(go.length > 0) {
+			if(go.length > 0) { //Length of matched before trigger @
 				msg.html(options.placeholder).show();
 				mentioned = new Text(name);
 				if(name.length > 0 && !is_like) {
@@ -86,7 +86,10 @@
 						{do:'search'},
 						{term:name}
 					];
+					//Start Loader (optional)
 					$.when(loadphp(options.callback_file, data)).done(function(data) {
+						//Wait for load php
+						//EOF Loader (optional)
 						show_suggest(data);
 					});
 				}
