@@ -1,3 +1,12 @@
+/*
+ * Mentioned Div
+ * Written by: Alireza Hatami
+ *
+ * Using jquery.js
+ *
+ * License: MIT License - http://www.opensource.org/licenses/mit-license.php
+ */
+
 (function($) {
 	$.fn.mention = function(options) {
 
