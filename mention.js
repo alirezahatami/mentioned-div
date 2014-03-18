@@ -19,8 +19,7 @@
 		//Helper Functions
 		function placeCaretAtEnd(el) {
 		    el.focus();
-		    if (typeof window.getSelection != "undefined"
-		            && typeof document.createRange != "undefined") {
+		    if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
 		        var range = document.createRange();
 		        range.selectNodeContents(el);
 		        range.collapse(false);
@@ -43,14 +42,14 @@
 		    });
 		}
 
-		//Main Functions
+		//Main Function
 		var start = /@/ig; // @ Match
 		var word = /@(\w.+)/ig; //@abc Match
 		var display_id = 'display';
-		var display = '';
+		display = '';
 		var msgbox_id = 'msg';
-		var msg = '';
-		var editable = '';
+		msg = '';
+		window.editable = '';
 		var htmlcaret_class = 'mentioned';
 		var htmladded_class = 'add_mention';
 		var placeholder = options.placeholder;
@@ -58,8 +57,11 @@
 		var is_like = false;
 		var before_data = '';
 
+		$('a').click(function() { return false; });
+
 		$(this).on("keyup",function(e) {
 			editable = $(this);
+			placeCaretAtEnd(editable[0]);
 			display = $(this).parent().children("#"+display_id);
 			msg = $(this).parent().children("#"+msgbox_id);
 			if(!display.length) $('<div id="'+display_id+'"></div>').insertAfter($(this)).hide();
@@ -68,7 +70,7 @@
 				display.hide().remove();
 				msg.hide().remove();
 			}
-			var editable_content = editable.text(); //Content Data
+			var editable_content = editable.text(); //Content Box Data
 			var go = editable_content.match(start); //Content Matching @
 			var name = editable_content.match(word); //Content Matching @abc
 			
@@ -78,7 +80,7 @@
 				else is_like = false;
 			})
 
-			if(go.length > 0) { //Length of matched before trigger @
+			if(go.length > 0) {
 				msg.html(options.placeholder).show();
 				mentioned = new Text(name);
 				if(name.length > 0 && !is_like) {
@@ -86,10 +88,7 @@
 						{do:'search'},
 						{term:name}
 					];
-					//Start Loader (optional)
 					$.when(loadphp(options.callback_file, data)).done(function(data) {
-						//Wait for load php
-						//EOF Loader (optional)
 						show_suggest(data);
 					});
 				}
@@ -99,23 +98,20 @@
 
 		function show_suggest(data) {
 			display.html(data).show();
-			msg.hide().remove();
 		}
 
 		$(document).on("click", "."+htmladded_class, function() {
-			var title = $(this).attr('title');
-			var uid = $(this).attr('uid');
+			var username = $(this).attr('title');
 			var old = editable.html();
 			var content = old.replace(word," "); //replacing @abc to (" ") space
-			editable.html(content);
-			var E = "<a class='"+htmlcaret_class+"' contenteditable='false' href='#'>"+title+"</a>&nbsp;";
-			editable.append(E);
+			var E = content+"<a class='"+htmlcaret_class+"' contenteditable='false'>"+username+"</a>&nbsp;";
+			editable.html(E);
 			display.hide().remove();
 			msg.hide().remove();
 			is_like = false;
 			before_data = '';
-			var idname = editable.attr('id');
-			placeCaretAtEnd(document.getElementById(idname));
+			placeCaretAtEnd(editable[0]);
+			editable = '';
 		});
 	};
 }(jQuery));
