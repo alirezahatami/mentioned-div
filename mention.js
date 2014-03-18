@@ -57,7 +57,9 @@
 		var is_like = false;
 		var before_data = '';
 
-		$('a').click(function() { return false; });
+		$(this).click('a', function() {
+    		return false;
+		});
 
 		$(this).on("keyup",function(e) {
 			editable = $(this);
